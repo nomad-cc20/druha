@@ -19,10 +19,10 @@ public class Home {
     private List<User> users;
 
     @OneToOne
-    private Home home;
+    private Cooler cooler;
 
-    @NonNull
-    private int roomsCount;
+    @OneToOne
+    private Heater heater;
 
     @OneToMany(
             mappedBy = "home",
@@ -31,4 +31,8 @@ public class Home {
     )
     private List<Room> rooms;
 
+    public void step() {
+        cooler.cool(this.rooms);
+        heater.heat(this.rooms);
+    }
 }

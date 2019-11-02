@@ -1,6 +1,7 @@
 package cz.upce.fei.inpda.druha.entity;
 
 import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,17 +16,21 @@ public class Cooler {
     private long id;
 
     @OneToOne
+    @NonNull
     private Home home;
 
+    @NonNull
     private double power = 0;
 
-    public void setPower(List<Room> rooms) {
+    public void cool(List<Room> rooms) {
         power = 0;
 
         for (Room room : rooms) {
-            if (room.getRequiredTemperature() < room.getActualTemperature()) {
-                power += (room.getRequiredTemperature() - room.getActualTemperature()) / 10;
-                room.raiseTemperature();
+            room.balanceTemperature();
+
+            if (room.getRequiredTemperature() < room.getActualTemperature() - 1) {
+                power--;
+                room.reduceTemperature();
             }
         }
     }

@@ -9,13 +9,8 @@ public class HomeDto extends HomeForUserDto {
 
     private List<UserForHomeDto> users;
 
-    public HomeDto(long id, int roomsCount, UserForHomeDto user) {
-        super(id, roomsCount);
-        this.users = users;
-    }
-
-    public HomeDto(long id, int roomsCount, List<User> users) {
-        super(id, roomsCount);
+    public HomeDto(long id, List<User> users) {
+        super(id);
         this.users = new LinkedList<>();
         users.forEach(user -> this.users.add(new UserForHomeDto(user)));
     }

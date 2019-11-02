@@ -1,10 +1,12 @@
 package cz.upce.fei.inpda.druha.service;
 
 import cz.upce.fei.inpda.druha.dao.HomeDao;
+import cz.upce.fei.inpda.druha.dao.RoomDao;
 import cz.upce.fei.inpda.druha.dao.UserDao;
 import cz.upce.fei.inpda.druha.dto.HomeDto;
 import cz.upce.fei.inpda.druha.dto.OwnershipDto;
 import cz.upce.fei.inpda.druha.entity.Home;
+import cz.upce.fei.inpda.druha.entity.Room;
 import cz.upce.fei.inpda.druha.entity.User;
 import cz.upce.fei.inpda.druha.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ public class HomeService {
     private UserDao userDao;
 
     @Autowired
-    private UserService userService;
+    private RoomDao roomDao;
 
     private JwtUtil jwtUtil = new JwtUtil();
 
@@ -74,11 +76,26 @@ public class HomeService {
     }
 
     public void deleteById(long id) {
-        homeDao.deleteById(id);
+        if (homeDao.existsById(id)) {
+            roomDao.deleteById(id);
+        } else {
+            throw new NoSuchElementException("No such home.");
+        }
+    }
+
+    public void addRoom(long homeId, String room) {
+        if (homeDao.existsById(homeId)) {
+            roomDao.save(new Room(room, homeDao.findById(homeId).get()));
+        } else {
+            throw new NoSuchElementException("No such home.");
+        }
+    }
+
+    public void setTemperature(long roomId, double temperature) {
+        roomDao.findById(roomId).get().setRequiredTemperature(temperature);
     }
 
     private HomeDto map(Home home) {
-        return new HomeDto(home.getId(), home.getRoomsCount(), homeDao.getOne(home.getId()).getUsers());
+        return new HomeDto(home.getId(), homeDao.getOne(home.getId()).getUsers());
     }
-
 }

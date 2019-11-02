@@ -16,17 +16,20 @@ public class Heater {
     private long id;
 
     @OneToOne
+    @NonNull
     private Home home;
 
     @NonNull
     private double power = 0;
 
-    public void setPower(List<Room> rooms) {
+    public void heat(List<Room> rooms) {
         power = 0;
 
         for (Room room : rooms) {
-            if (room.getRequiredTemperature() > room.getActualTemperature()) {
-                power += (room.getRequiredTemperature() - room.getActualTemperature()) / 10;
+            room.balanceTemperature();
+
+            if (room.getRequiredTemperature() > room.getActualTemperature() + 1) {
+                power++;
                 room.raiseTemperature();
             }
         }

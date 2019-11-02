@@ -1,14 +1,14 @@
 package cz.upce.fei.inpda.druha.service;
 
+import cz.upce.fei.inpda.druha.dao.CoolerDao;
+import cz.upce.fei.inpda.druha.dao.HeaterDao;
 import cz.upce.fei.inpda.druha.dao.HomeDao;
 import cz.upce.fei.inpda.druha.dao.UserDao;
 import cz.upce.fei.inpda.druha.dto.CredentialsDto;
 import cz.upce.fei.inpda.druha.dto.HomeForUserDto;
 import cz.upce.fei.inpda.druha.dto.UserDto;
 import cz.upce.fei.inpda.druha.dto.UserForHomeDto;
-import cz.upce.fei.inpda.druha.entity.Role;
-import cz.upce.fei.inpda.druha.entity.RoleENum;
-import cz.upce.fei.inpda.druha.entity.User;
+import cz.upce.fei.inpda.druha.entity.*;
 import cz.upce.fei.inpda.druha.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,10 @@ public class UserService {
     private HomeDao homeDao;
 
     @Autowired
-    private HomeService homeService;
+    private CoolerDao coolerDao;
+
+    @Autowired
+    private HeaterDao heaterDao;
 
     private JwtUtil jwtUtil = new JwtUtil();
 
@@ -58,7 +61,7 @@ public class UserService {
 
     private UserDto map(User user) {
         UserDto userDto = new UserDto(user.getId(), user.getUsername(), user.getPassword());
-        this.homeService.readByUserId(user.getId()).forEach(homeDto -> userDto.getHomes().add(new HomeForUserDto(homeDto.getId(), homeDto.getRoomsCount())));
+        userDao.findById(user.getId()).get().getHomes().forEach(home -> userDto.getHomes().add(new HomeForUserDto(home.getId())));
         return userDto;
     }
 
@@ -78,5 +81,22 @@ public class UserService {
         } catch (Exception ex) {
             return "";
         }
+    }
+
+    public void addHome(long userId) {
+        List users = new LinkedList<>();
+        if (userDao.existsById(userId))
+            users.add(userDao.findById(userId).get());
+        else
+            return;
+        Home home = new Home();
+        Cooler cooler = new Cooler(home);
+        coolerDao.save(cooler);
+        Heater heater = new Heater(home);
+        heaterDao.save(heater);
+        home.setUsers(users);
+        home.setCooler(cooler);
+        home.setHeater(heater);
+        homeDao.save(home);
     }
 }
