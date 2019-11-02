@@ -78,7 +78,7 @@ public class HomeService {
     }
 
     private HomeDto map(Home home) {
-        return new HomeDto(home.getId(), home.getRoomsCount(), userService.readUserForHome(home.getUsers()));
+        return new HomeDto(home.getId(), home.getRoomsCount(), homeDao.getOne(home.getId()).getUsers());
     }
 
 }

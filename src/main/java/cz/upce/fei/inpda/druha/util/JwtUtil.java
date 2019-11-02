@@ -1,6 +1,6 @@
 package cz.upce.fei.inpda.druha.util;
 
-import cz.upce.fei.inpda.prva.entity.User;
+import cz.upce.fei.inpda.druha.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

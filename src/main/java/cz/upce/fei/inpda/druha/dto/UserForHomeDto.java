@@ -1,6 +1,6 @@
 package cz.upce.fei.inpda.druha.dto;
 
-import cz.upce.fei.inpda.prva.entity.User;
+import cz.upce.fei.inpda.druha.entity.User;
 
 public class UserForHomeDto extends CredentialsDto {
 

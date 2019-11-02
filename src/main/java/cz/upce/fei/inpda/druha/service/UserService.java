@@ -1,10 +1,13 @@
 package cz.upce.fei.inpda.druha.service;
 
+import cz.upce.fei.inpda.druha.dao.HomeDao;
 import cz.upce.fei.inpda.druha.dao.UserDao;
 import cz.upce.fei.inpda.druha.dto.CredentialsDto;
 import cz.upce.fei.inpda.druha.dto.HomeForUserDto;
 import cz.upce.fei.inpda.druha.dto.UserDto;
 import cz.upce.fei.inpda.druha.dto.UserForHomeDto;
+import cz.upce.fei.inpda.druha.entity.Role;
+import cz.upce.fei.inpda.druha.entity.RoleENum;
 import cz.upce.fei.inpda.druha.entity.User;
 import cz.upce.fei.inpda.druha.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +24,15 @@ public class UserService {
     private UserDao userDao;
 
     @Autowired
+    private HomeDao homeDao;
+
+    @Autowired
     private HomeService homeService;
 
     private JwtUtil jwtUtil = new JwtUtil();
 
     public void create(CredentialsDto user) {
-        userDao.save(user);
+        userDao.save(new User(user.getUsername(), user.getPassword(), new Role(RoleENum.LOGIN)));
     }
 
     public UserDto readById(long id) {
@@ -56,12 +62,21 @@ public class UserService {
         return userDto;
     }
 
-    UserForHomeDto readUserForHome(long id) {
-        return (userDao.existsById(id) ? new UserForHomeDto(userDao.findById(id)) : null);
+    List<UserForHomeDto> readUsersForHome(long id) {
+        List<UserForHomeDto> users = new LinkedList<>();
+        if (userDao.existsById(id))
+            homeDao.findById(id).get().getUsers().forEach(user -> users.add(new UserForHomeDto(user)));
+        return users;
     }
 
     public String authorize(CredentialsDto credentialsDto) {
-        User user = userDao.findByCredentials(credentialsDto);
-        return (user == null ? "" : jwtUtil.generateToken(user));
+        try {
+            return jwtUtil.generateToken(userDao.findAll().stream().filter(user -> {
+                return user.getUsername() == credentialsDto.getUsername()
+                        && user.getPassword() == credentialsDto.getPassword();
+            }).findFirst().get());
+        } catch (Exception ex) {
+            return "";
+        }
     }
 }
