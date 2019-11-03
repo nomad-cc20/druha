@@ -40,13 +40,13 @@ public class Room {
     public void raiseTemperature() {
         actualTemperature++;
 
-        logger.info("Room " + this.getId() + ": temperature changed to " + this.getActualTemperature() + " °C due to an active heating.");
+        logger.info("Room " + this.getId() + ": temperature " + this.getActualTemperature());
     }
 
     public void reduceTemperature() {
         actualTemperature--;
 
-        logger.info("Room " + this.getId() + ": temperature changed to " + this.getActualTemperature() + " °C due to an active cooling.");
+        logger.info("Room " + this.getId() + ": temperature " + this.getActualTemperature());
     }
 
     public void balanceTemperature() {
@@ -55,6 +55,6 @@ public class Room {
         else
             actualTemperature -= 0.1;
 
-            logger.info("Room " + this.getId() + ": temperature changed to " + this.getActualTemperature() + " °C due to natural causes.");
+        logger.info("Room " + this.getId() + ": temperature " + this.getActualTemperature());
     }
 }

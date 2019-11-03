@@ -41,7 +41,7 @@ public class Heater {
             }
         }
 
-        logger.info("Heater " + this.getId() + ": power consumption is " + this.power + " units right now.");
+        logger.info("Cooler " + this.getHome().getId() + ": power" + this.power);
     }
 
 }
