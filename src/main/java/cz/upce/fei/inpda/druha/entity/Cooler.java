@@ -24,6 +24,7 @@ public class Cooler {
     @NonNull
     private double power = 0;
 
+    @Transient
     Logger logger = LoggerFactory.getLogger(Cooler.class);
 
     public void cool() {

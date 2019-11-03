@@ -19,9 +19,8 @@ public class User {
     private String username, password;
 
     @NonNull
-    @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
-    private Role role;
+    @Enumerated
+    private RoleENum role;
 
     @ManyToMany
     @JoinTable(

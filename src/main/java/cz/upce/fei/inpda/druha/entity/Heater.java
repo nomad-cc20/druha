@@ -24,6 +24,7 @@ public class Heater {
     @NonNull
     private double power = 0;
 
+    @Transient
     Logger logger = LoggerFactory.getLogger(Heater.class);
 
     public void heat() {

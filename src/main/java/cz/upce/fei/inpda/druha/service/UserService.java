@@ -32,7 +32,7 @@ public class UserService {
     private JwtUtil jwtUtil = new JwtUtil();
 
     public void create(CredentialsDto user) {
-        userDao.save(new User(user.getUsername(), user.getPassword(), new Role(RoleENum.LOGIN)));
+        userDao.save(new User(user.getUsername(), user.getPassword(), RoleENum.LOGIN));
     }
 
     public UserDto readById(long id) {
