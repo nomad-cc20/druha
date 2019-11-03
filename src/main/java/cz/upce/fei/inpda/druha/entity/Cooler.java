@@ -36,7 +36,7 @@ public class Cooler {
 
         for (Room room : home.getRooms()) {
             if (room.getRequiredTemperature() < room.getActualTemperature() - 1) {
-                power--;
+                power++;
                 room.reduceTemperature();
             }
         }

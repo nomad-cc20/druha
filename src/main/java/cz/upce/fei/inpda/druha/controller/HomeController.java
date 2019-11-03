@@ -55,6 +55,6 @@ public class HomeController {
     @ApiOperation("Sets the desired temperature.")
     @PostMapping("temperature")
     public void setTemperature(@RequestBody TemperatureDto temperatureDto) {
-        homeService.getRoom(temperatureDto.getRoomId()).setRequiredTemperature(temperatureDto.getTemperature());
+        homeService.setTemperature(temperatureDto.getRoomId(), temperatureDto.getTemperature());
     }
 }

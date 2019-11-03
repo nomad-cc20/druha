@@ -99,7 +99,9 @@ public class HomeService {
     }
 
     public void setTemperature(long roomId, double temperature) {
-        roomDao.findById(roomId).get().setRequiredTemperature(temperature);
+        Room room = roomDao.findById(roomId).get();
+        room.setRequiredTemperature(temperature);
+        roomDao.save(room);
     }
 
     private HomeDto map(Home home) {
