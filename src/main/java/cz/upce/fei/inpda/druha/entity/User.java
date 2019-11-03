@@ -1,7 +1,9 @@
 package cz.upce.fei.inpda.druha.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,10 +11,12 @@ import java.util.List;
 @Data
 @Entity(name = "User")
 @Table(name = "user")
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NonNull

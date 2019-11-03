@@ -1,7 +1,9 @@
 package cz.upce.fei.inpda.druha.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,10 +13,12 @@ import java.util.List;
 @Data
 @Entity(name = "Cooler")
 @Table(name = "cooler")
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Cooler {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @OneToOne

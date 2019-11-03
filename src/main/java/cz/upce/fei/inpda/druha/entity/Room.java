@@ -1,7 +1,9 @@
 package cz.upce.fei.inpda.druha.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,10 +13,12 @@ import java.util.Random;
 @Data
 @Entity(name = "Room")
 @Table(name = "room")
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Room {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NonNull
@@ -51,6 +55,6 @@ public class Room {
         else
             actualTemperature -= 0.1;
 
-        logger.info("Room " + this.getId() + ": temperature changed to " + this.getActualTemperature() + " °C due to natural causes.");
+            logger.info("Room " + this.getId() + ": temperature changed to " + this.getActualTemperature() + " °C due to natural causes.");
     }
 }

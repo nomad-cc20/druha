@@ -1,7 +1,9 @@
 package cz.upce.fei.inpda.druha.entity;
 
 import lombok.Data;
-import lombok.NonNull;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,16 +14,16 @@ import java.util.List;
 public class Home {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToMany(mappedBy = "homes")
     private List<User> users;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Cooler cooler;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Heater heater;
 
     @OneToMany(
@@ -32,7 +34,7 @@ public class Home {
     private List<Room> rooms;
 
     public void step() {
-        rooms.forEach(room -> room.balanceTemperature());
+        rooms.forEach(Room::balanceTemperature);
 
         cooler.cool();
         heater.heat();
