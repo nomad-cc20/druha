@@ -32,6 +32,8 @@ public class Home {
     private List<Room> rooms;
 
     public void step() {
+        rooms.forEach(room -> room.balanceTemperature());
+
         cooler.cool();
         heater.heat();
     }
