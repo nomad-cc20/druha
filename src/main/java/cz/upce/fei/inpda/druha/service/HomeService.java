@@ -5,6 +5,7 @@ import cz.upce.fei.inpda.druha.dao.RoomDao;
 import cz.upce.fei.inpda.druha.dao.UserDao;
 import cz.upce.fei.inpda.druha.dto.HomeDto;
 import cz.upce.fei.inpda.druha.dto.OwnershipDto;
+import cz.upce.fei.inpda.druha.dto.RoomDto;
 import cz.upce.fei.inpda.druha.entity.Home;
 import cz.upce.fei.inpda.druha.entity.Room;
 import cz.upce.fei.inpda.druha.entity.User;
@@ -91,11 +92,21 @@ public class HomeService {
         }
     }
 
+    public List<RoomDto> getRooms(long homeId) {
+        List<RoomDto> rooms = new LinkedList<>();
+        homeDao.findById(homeId).get().getRooms().forEach(room -> rooms.add(new RoomDto(room)));
+        return rooms;
+    }
+
     public void setTemperature(long roomId, double temperature) {
         roomDao.findById(roomId).get().setRequiredTemperature(temperature);
     }
 
     private HomeDto map(Home home) {
         return new HomeDto(home.getId(), homeDao.getOne(home.getId()).getUsers());
+    }
+
+    public RoomDto getRoom(long roomId) {
+        return new RoomDto(roomDao.findById(roomId).get());
     }
 }

@@ -4,10 +4,7 @@ import cz.upce.fei.inpda.druha.dao.CoolerDao;
 import cz.upce.fei.inpda.druha.dao.HeaterDao;
 import cz.upce.fei.inpda.druha.dao.HomeDao;
 import cz.upce.fei.inpda.druha.dao.UserDao;
-import cz.upce.fei.inpda.druha.dto.CredentialsDto;
-import cz.upce.fei.inpda.druha.dto.HomeForUserDto;
-import cz.upce.fei.inpda.druha.dto.UserDto;
-import cz.upce.fei.inpda.druha.dto.UserForHomeDto;
+import cz.upce.fei.inpda.druha.dto.*;
 import cz.upce.fei.inpda.druha.entity.*;
 import cz.upce.fei.inpda.druha.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,5 +95,9 @@ public class UserService {
         home.setCooler(cooler);
         home.setHeater(heater);
         homeDao.save(home);
+    }
+
+    public UserDto readByToken(String token) {
+        return new UserDto(userDao.findById(jwtUtil.extractUserId(token)).get());
     }
 }

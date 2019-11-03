@@ -1,7 +1,6 @@
 package cz.upce.fei.inpda.druha.controller;
 
-import cz.upce.fei.inpda.druha.dto.HomeDto;
-import cz.upce.fei.inpda.druha.dto.OwnershipDto;
+import cz.upce.fei.inpda.druha.dto.*;
 import cz.upce.fei.inpda.druha.entity.Home;
 import cz.upce.fei.inpda.druha.service.HomeService;
 import io.swagger.annotations.Api;
@@ -30,7 +29,7 @@ public class HomeController {
     }
 
     @ApiOperation("Creates a new home.")
-    @PostMapping("{roomsCount}")
+    @GetMapping("room")
     public void add() {
         homeService.create(new Home());
     }
@@ -39,5 +38,23 @@ public class HomeController {
     @PostMapping("home")
     public void setUserToHome(@RequestBody OwnershipDto ownership) {
         homeService.setOwner(ownership);
+    }
+
+    @ApiOperation("Registers a new room in the house.")
+    @PostMapping("room")
+    public void addRoom(@RequestBody RoomTempDto roomTempDto) {
+        homeService.addRoom(roomTempDto.getRoomId(), roomTempDto.getName());
+    }
+
+    @ApiOperation("Returns all rooms.")
+    @GetMapping("rooms/{homeId}")
+    public List<RoomDto> getRoom(@PathVariable("homeId") long homeId) {
+        return homeService.getRooms(homeId);
+    }
+
+    @ApiOperation("Sets the desired temperature.")
+    @PostMapping("temperature")
+    public void setTemperature(@RequestBody TemperatureDto temperatureDto) {
+        homeService.getRoom(temperatureDto.getRoomId()).setRequiredTemperature(temperatureDto.getTemperature());
     }
 }

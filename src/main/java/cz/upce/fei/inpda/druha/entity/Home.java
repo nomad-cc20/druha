@@ -32,7 +32,7 @@ public class Home {
     private List<Room> rooms;
 
     public void step() {
-        cooler.cool(this.rooms);
-        heater.heat(this.rooms);
+        cooler.cool();
+        heater.heat();
     }
 }

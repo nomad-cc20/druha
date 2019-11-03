@@ -22,10 +22,10 @@ public class Heater {
     @NonNull
     private double power = 0;
 
-    public void heat(List<Room> rooms) {
+    public void heat() {
         power = 0;
 
-        for (Room room : rooms) {
+        for (Room room : home.getRooms()) {
             room.balanceTemperature();
 
             if (room.getRequiredTemperature() > room.getActualTemperature() + 1) {
