@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Table(name = "cooler")
 @NoArgsConstructor
 @RequiredArgsConstructor
+@Slf4j
 public class Cooler {
 
     @Id
@@ -28,9 +30,6 @@ public class Cooler {
     @NonNull
     private double power = 0;
 
-    @Transient
-    Logger logger = LoggerFactory.getLogger(Cooler.class);
-
     public void cool() {
         power = 0;
 
@@ -41,7 +40,7 @@ public class Cooler {
             }
         }
 
-        logger.info("Cooler " + this.getHome().getId() + ": power" + this.power);
+        log.info("Cooler " + this.getHome().getId() + " " +  this.power);
     }
 
 }

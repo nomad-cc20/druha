@@ -49,6 +49,15 @@ dependencies {
     implementation('io.jsonwebtoken:jjwt-api:0.10.5')
     implementation('io.jsonwebtoken:jjwt-impl:0.10.5')
     implementation('io.jsonwebtoken:jjwt-jackson:0.10.5')
+
+    compile("net.logstash.logback:logstash-logback-encoder:4.9")
+//    compile("ch.qos.logback:logback-classic:1.1.6")
+//    compile("ch.qos.logback:logback-core:1.1.6")
+//    compile("ch.qos.logback:logback-access:1.1.6")
+//
+//    compile("org.slf4j:slf4j-api:1.7.15")
+//    compile("org.slf4j:jcl-over-slf4j:1.7.15")
+//    compile("org.slf4j:log4j-over-slf4j:1.7.15")
 }
 
 test {

@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +16,7 @@ import java.util.Random;
 @Table(name = "room")
 @NoArgsConstructor
 @RequiredArgsConstructor
+@Slf4j
 public class Room {
 
     @Id
@@ -31,22 +33,19 @@ public class Room {
 
     private static Random random = new Random();
 
-    @Transient
-    Logger logger = LoggerFactory.getLogger(Room.class);
-
     @NonNull
     private double actualTemperature = 0, requiredTemperature = 0;
 
     public void raiseTemperature() {
         actualTemperature++;
 
-        logger.info("Room " + this.getId() + ": temperature " + this.getActualTemperature());
+        log.info("Room " + this.getId() + " " + this.getActualTemperature());
     }
 
     public void reduceTemperature() {
         actualTemperature--;
 
-        logger.info("Room " + this.getId() + ": temperature " + this.getActualTemperature());
+        log.info("Room " + this.getId() + " " + this.getActualTemperature());
     }
 
     public void balanceTemperature() {
@@ -55,6 +54,6 @@ public class Room {
         else
             actualTemperature -= 0.1;
 
-        logger.info("Room " + this.getId() + ": temperature " + this.getActualTemperature());
+        log.info("Room " + this.getId() + " " + this.getActualTemperature());
     }
 }
