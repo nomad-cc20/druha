@@ -32,6 +32,18 @@ public class UserController {
         return this.userService.authorize(credentialsDto);
     }
 
+    @ApiOperation("Reads user's homes.")
+    @GetMapping("{id}")
+    public UserDto get(@PathVariable(value="id") long id) {
+        return userService.readById(id);
+    }
+
+//    @ApiOperation("Finds the user.")
+//    @PostMapping("user")
+//    public String find(@RequestBody CredentialsDto credentialsDto) {
+//        return this.userService.read(credentialsDto);
+//    }
+
     @ApiOperation("Creates a new home for the user.")
     @GetMapping("inhabit")
     public void inhabit(@RequestHeader(value="Authorization") String token) {

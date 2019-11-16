@@ -5,7 +5,7 @@
 
     <!-- Logstash-Configuration -->
     <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>192.168.99.100:32829</destination>
+        <destination>localhost:5044</destination>
         <!-- encoder is required -->
         <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
         <keepAliveDuration>5 minutes</keepAliveDuration>

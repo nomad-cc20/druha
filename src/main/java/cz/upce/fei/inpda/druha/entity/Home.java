@@ -1,5 +1,6 @@
 package cz.upce.fei.inpda.druha.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,11 @@ public class Home {
     private List<User> users;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     private Cooler cooler;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     private Heater heater;
 
     @OneToMany(
@@ -31,6 +34,7 @@ public class Home {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @JsonIgnore
     private List<Room> rooms;
 
     public void step() {

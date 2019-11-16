@@ -1,5 +1,6 @@
 package cz.upce.fei.inpda.druha.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -27,10 +28,11 @@ public class User {
     private RoleENum role;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "user_home",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "post_id"))
+            inverseJoinColumns = @JoinColumn(name = "home_id"))
     private List<Home> homes;
 
 }

@@ -1,5 +1,6 @@
 package cz.upce.fei.inpda.druha.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -28,6 +29,7 @@ public class Room {
 
     @NonNull
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "home_id")
     private Home home;
 

@@ -10,7 +10,7 @@ import java.util.LinkedHashMap;
 
 public class JwtUtil {
 
-    private String secret = "ajfn2372nf32bg28prjgergoerjerjojhep5ughrnsoeirgpo34hnpgo34ugoun4poghwp4ougn2p34uhgp984hwpfgw4ohgpw4h8pgo4hpg9whr4p9wuhpg9uw4hpg9w4hpg9hw4p9g8hwp4ghwp4hgpow4ihb3g";
+    private final String secret = "ajfn2372nf32bg28prjgergoerjerjojhep5ughrnsoeirgpo34hnpgo34ugoun4poghwp4ougn2p34uhgp984hwpfgw4ohgpw4h8pgo4hpg9whr4p9wuhpg9uw4hpg9w4hpg9hw4p9g8hwp4ghwp4hgpow4ihb3g";
 
     public long extractUserId(String token) {
 

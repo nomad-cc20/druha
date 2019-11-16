@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 @Service
 public class UserService {
@@ -57,7 +58,7 @@ public class UserService {
     }
 
     private UserDto map(User user) {
-        UserDto userDto = new UserDto(user.getId(), user.getUsername(), user.getPassword());
+        UserDto userDto = new UserDto(user);
         userDao.findById(user.getId()).get().getHomes().forEach(home -> userDto.getHomes().add(new HomeForUserDto(home.getId())));
         return userDto;
     }
@@ -72,8 +73,8 @@ public class UserService {
     public String authorize(CredentialsDto credentialsDto) {
         try {
             return jwtUtil.generateToken(userDao.findAll().stream().filter(user -> {
-                return user.getUsername() == credentialsDto.getUsername()
-                        && user.getPassword() == credentialsDto.getPassword();
+                return user.getUsername().compareTo(credentialsDto.getUsername()) == 0
+                        && user.getPassword().compareTo(credentialsDto.getPassword()) == 0;
             }).findFirst().get());
         } catch (Exception ex) {
             return "";

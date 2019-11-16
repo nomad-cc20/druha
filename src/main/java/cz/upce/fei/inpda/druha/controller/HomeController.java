@@ -22,6 +22,12 @@ public class HomeController {
         this.homeService = homeService;
     }
 
+    @ApiOperation("Reads home.")
+    @GetMapping("home/{id}")
+    public HomeDto get(@PathVariable(value="id") long id) {
+        return homeService.readById(id);
+    }
+
     @ApiOperation("Reads user's homes.")
     @GetMapping("home")
     public List<HomeDto> get(@RequestHeader(value="Authorization") String token) {

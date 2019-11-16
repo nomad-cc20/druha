@@ -37,7 +37,7 @@ public class HomeService {
 
     public HomeDto readById(long id) {
         if (homeDao.existsById(id))
-            return map(homeDao.findById(id).get());
+            return new HomeDto(homeDao.findById(id).get());
         else
             throw new NoSuchElementException("No such home.");
     }
